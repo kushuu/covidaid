@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'mainapp.apps.MainappConfig',
     'crispy_forms',
     'places',
+    'requests',
     # preinstalled
     'django.contrib.admin',
     'django.contrib.auth',

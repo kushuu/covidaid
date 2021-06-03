@@ -1,4 +1,74 @@
 {% extends 'mainapp/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
 {% block title %}
 {{title}}
 {% endblock %}
+{% block content %}
+<style>
+input {
+    margin-bottom: 15px;
+    margin-left: 3px;
+    margin-right: 3px;
+}
+form {
+    margin-top: 50px;
+    padding: 10px;
+    width: 70%;
+    margin: 0 auto;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 10px;
+}
+</style>
+<section class="section section-header text-dark pb-md-8">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-10 text-center mb-5 mb-md-7">
+                <h1 class="display-3 font-weight-bolder mb-4">
+                    Find help from the kind side of the internet
+                </h1>
+                <p class="lead mb-4 mb-lg-5">Let's understand what you need. :)</p>
+                <div>
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <fieldset class="form-group">
+                            {{form|crispy}}
+                        </fieldset>
+                        <div class="form-group">
+                            <button class="btn btn-dark btn-download-app" type="submit">
+                                <span class="d-flex align-items-center">
+                                    <span class="icon icon-brand mr-2 mr-md-3"><span
+                                            class="fas fa-hands-helping"></span></span>
+                                    <span class="d-inline-block text-left">
+                                        <small class="font-weight-normal d-none d-md-block">Do</small> Help
+                                    </span>
+                                </span>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+            {% comment %} <div class="col-12 col-md-10 justify-content-center">
+                <img class="d-none d-md-inline-block" src="{% static 'images/nocovid.png' %}" alt="Mobile App Mockup"
+                    style="max-width=50% !important;">
+            </div> {% endcomment %}
+        </div>
+    </div>
+</section>
+{% endblock content%}
+{% block extrascripts %}
+    <script>
+    function initAutocomplete() {
+        autocomplete = new google.maps.places.Autocomplete(
+            document.getElementById('id_city_name'),
+            {
+                types: ['(regions)'],
+                componentRestrictions: {'country': ['IN']},
+                fields: ['places_id', 'geometry', 'name']
+            });
+    }
+    </script>
+    <script async
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu-VVJtUXdLwSYPs1tsaeveJE8E_XhXD8&libraries=places&callback=initAutocomplete">
+    </script>
+{% endblock extrascripts %}
